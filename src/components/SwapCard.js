@@ -91,7 +91,7 @@ const SwapCard = () => {
         </div>
         <div>
           <div className={styles.formGroup}>
-            <div className={styles.tokenContainer}>
+            <div className={styles.currencyContainer}>
               {
                 currency && <select
                   onChange={(e) => setCurrency(e.target.value)}

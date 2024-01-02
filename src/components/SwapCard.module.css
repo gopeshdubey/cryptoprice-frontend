@@ -1,6 +1,7 @@
 select{
   border: none;
   width: -webkit-fill-available;
+  background: var(--tertiary-background-color);
 }
 .swapCard {
   background-color: var(--secondary-background-color);
@@ -42,6 +43,15 @@ select{
   gap: 0.5rem;
   background-color: var(--tertiary-background-color);
   border-radius: 0 1.25rem 1.25rem 0;
+}
+.currencyContainer {
+  width: calc(100%);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--tertiary-background-color);
+  border-radius: 1.25rem;
 }
 
 .tokenIcon {
