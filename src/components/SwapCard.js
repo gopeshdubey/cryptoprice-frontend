@@ -3,6 +3,7 @@ import styles from './SwapCard.module.css';
 import Spinner from './Spinner';
 import Button from './Button';
 import axios from 'axios';
+import apiList from "../adapter/api";
 
 const SwapCard = () => {
   const [validate, setValidate] = useState("");
@@ -16,11 +17,9 @@ const SwapCard = () => {
 
   const fetchCryptoData = async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL);
-      if (response.data && response.data.data && response.data.data.length) {
-        setCryptoList(response.data.data);
-        setCurrencyList(response.data.data[0].currencies);
-      }
+      const response = await apiList.getCryptoData();
+      setCryptoList(response.cryptoList);
+      setCurrencyList(response.currencyList);
     } catch (error) {
       console.log(error);
     }
@@ -44,15 +43,14 @@ const SwapCard = () => {
 
     const value = validation()
     if (value) {
-      const body = {
-        sourceCrypto: crypto,
-        amount: amount,
-        targetCurrency: currency,
-      };
-      const response = await axios.post(process.env.REACT_APP_API_URL, body);
-      if (response.data && response.data.data) {
-        setQuote(response.data.data.price);
-        setValidate("")
+      try {
+        const response = await apiList.getCryptoPrice(crypto,amount,currency);
+        if (response.price) {
+          setQuote(response.price);
+          setValidate("")
+        }
+      } catch (error) {
+        alert("Something went wrong")
       }
     }
     setIsLoading(false);
